@@ -5,5 +5,7 @@ using namespace std;
 
 int main()
 {
+    std::cout << "v\n";
+
     return 0;
 }
