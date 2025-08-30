@@ -1,0 +1,30 @@
+\doxysection{otus\+::Has\+Function\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structotus_1_1HasFunction}{}\label{structotus_1_1HasFunction}\index{otus::HasFunction$<$ T $>$@{otus::HasFunction$<$ T $>$}}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structotus_1_1IsSame}{static}} \mbox{\hyperlink{structotus_1_1IsSame}{constexpr}} \mbox{\hyperlink{structotus_1_1IsSame}{bool}} \mbox{\hyperlink{structotus_1_1HasFunction_aad1d772964c4dba9a18709b5107e4134}{value}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structotus_1_1HasFunction_aad1d772964c4dba9a18709b5107e4134}\label{structotus_1_1HasFunction_aad1d772964c4dba9a18709b5107e4134} 
+\index{otus::HasFunction$<$ T $>$@{otus::HasFunction$<$ T $>$}!value@{value}}
+\index{value@{value}!otus::HasFunction$<$ T $>$@{otus::HasFunction$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$ \\
+\mbox{\hyperlink{structotus_1_1IsSame}{constexpr}} \mbox{\hyperlink{structotus_1_1IsSame}{bool}} \mbox{\hyperlink{structotus_1_1HasFunction}{otus\+::\+Has\+Function}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$\+::value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ !IsSame<char,\ decltype(begin(std::declval<T>()))>::value\ \&\&}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ !IsSame<char,\ decltype(end(std::declval<T>()))>::value\ \&\&}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ !IsSame<char,\ decltype(size(std::declval<T>()))>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib\+\_\+sfinae.\+h\end{DoxyCompactItemize}
