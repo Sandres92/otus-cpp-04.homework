@@ -98,22 +98,11 @@ namespace otus
             unsigned char byte = val >> 8 * i;
             int number = static_cast<int>(byte);
 
-            result += std::to_string(number);
-            if (i != 0)
-            {
-                result += ".";
-            }
+            result += std::to_string(number) + ".";
         }
 
-        std::cout << result << "\n";
-        //  std::copy(&val,
-        //            &val + sizeof(T),
-        //            bytes);
-        //
-        //  for (int i = sizeof(T) - 1; i <= 0; --i)
-        //{
-        //     std::cout << static_cast<int>(bytes[i]) << " ";
-        // }
+        result.pop_back();
+
         return result;
     }
 
@@ -152,14 +141,11 @@ namespace otus
 
         for (auto it = val.begin(); it != val.end(); ++it)
         {
-            result += std::to_string(*it);
-            if (it != val.end() - 1)
-            {
-                result += ".";
-            }
+            result += std::to_string(*it) + ".";
         }
 
-        std::cout << result << "\n";
+        result.pop_back();
+
         return result;
     }
 
@@ -167,7 +153,6 @@ namespace otus
     typename EnableIf<IsSame<T, std::string>::value, std::string>::type
     print_ip(const T &val)
     {
-        std::cout << "std::string =" << val << "\n";
         return val;
     }
 
@@ -213,9 +198,6 @@ namespace otus
                       std::string>::type
     print_ip(const std::tuple<T, U...> &val)
     {
-        std::cout << "tuple =" << std::get<0>(val) << " , " << std::get<1>(val) << "\n";
-        std::string result = TupleToString(val);
-        std::cout << result << "\n";
-        return result;
+        return TupleToString(val);
     }
 }

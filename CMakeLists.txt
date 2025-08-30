@@ -9,11 +9,10 @@ option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
 configure_file(version.h.in version.h)
 
-add_executable(sfinae_cli sfinae.cpp)
+add_executable(sfinae_cli sfinae.cpp lib_sfinae.h)
 add_library(lib_version lib.cpp)
-add_library(lib_sfinae lib_sfinae.cpp)
 
-set_target_properties(sfinae_cli lib_version lib_sfinae PROPERTIES
+set_target_properties(sfinae_cli lib_version PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
 )
@@ -21,14 +20,9 @@ set_target_properties(sfinae_cli lib_version lib_sfinae PROPERTIES
 target_include_directories(lib_version
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
-
-target_include_directories(lib_sfinae
-    PRIVATE "${CMAKE_BINARY_DIR}"
-)
  
 target_link_libraries(sfinae_cli PRIVATE
     lib_version
-    lib_sfinae
 ) 
 
 if(WITH_BOOST_TEST)
@@ -48,7 +42,6 @@ if(WITH_BOOST_TEST)
     target_link_libraries(test_sfinae
         ${Boost_LIBRARIES}
         lib_version
-        lib_sfinae
     )
 endif()
 
@@ -59,9 +52,7 @@ if (MSVC)
     target_compile_options(lib_version lib_sfinae PRIVATE
         /W4
     )
-    target_compile_options(lib_sfinae PRIVATE
-        /W4
-    )
+
     if(WITH_BOOST_TEST)
         target_compile_options(test_sfinae PRIVATE
             /W4
@@ -74,9 +65,7 @@ else ()
     target_compile_options(lib_version PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(lib_sfinae PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+
     if(WITH_BOOST_TEST)
         target_compile_options(test_sfinae PRIVATE
             -Wall -Wextra -pedantic -Werror

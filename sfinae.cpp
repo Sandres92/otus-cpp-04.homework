@@ -18,48 +18,35 @@ struct MyStruct
 
 int main()
 {
-    std::string str = "123";
+    // int a = 1;
+    // otus::print_ip(a);
 
-    // int8_t x_8 = -1;
-    // int16_t x_16 = 0;
-    // int32_t x_32 = 2130706433;
-    // int64_t x_64 = 8875824491850138409;
+    std::string s = otus::print_ip(int8_t{-1}); // 255
+    std::cout << s << "\n";
 
-    int a = 1;
-    otus::print_ip(a);
+    s = otus::print_ip(int16_t{0}); // 0.0
+    std::cout << s << "\n";
 
-    int8_t x_8 = -1;
-    otus::print_ip(x_8);
+    s = otus::print_ip(int32_t{2130706433}); // 127.0.0.1
+    std::cout << s << "\n";
 
-    int16_t x_16 = 0;
-    otus::print_ip(x_16);
+    s = otus::print_ip(int64_t{8875824491850138409}); // 123.45.67.89.101.112.131.41
+    std::cout << s << "\n";
 
-    int32_t x_32 = 2130706433;
-    otus::print_ip(x_32);
+    s = otus::print_ip(std::string{"Hello, World !"}); // Hello, World!
+    std::cout << s << "\n";
 
-    int64_t x_64 = 8875824491850138409;
-    otus::print_ip(x_64);
+    s = otus::print_ip(std::vector<int>{100, 200, 300, 400}); // 100.200.300.400
+    std::cout << s << "\n";
 
-    std::vector v{1, 2, 3};
-    otus::print_ip(v);
+    s = otus::print_ip(std::list<short>{400, 300, 200, 100}); // 400.300.200.100
+    std::cout << s << "\n";
 
-    std::vector<int> v2{2};
-    otus::print_ip(v2);
+    s = otus::print_ip(std::make_tuple(123, 456, 789, 0)); // 123.456.789.0
+    std::cout << s << "\n";
 
-    std::vector l{4, 6, 6};
-    otus::print_ip(l);
-
-    std::string s = "Hello world!";
-    otus::print_ip(s);
-
-    // float f = 1.0f;
-    // otus::print_ip(f);
-
-    std::tuple<int, int> t{1, 2};
-    otus::print_ip(t);
-
-    std::cout << "HasFoo has foo(): " << otus::HasFunction<std::vector<int>>::value << std::endl; // true
-    std::cout << "HasFoo has foo(): " << otus::HasFunction<int>::value << std::endl;              // true
+    // std::cout << "HasFoo has foo(): " << otus::HasFunction<std::vector<int>>::value << std::endl; // true
+    // std::cout << "HasFoo has foo(): " << otus::HasFunction<int>::value << std::endl;              // true
 
     return 0;
 }
