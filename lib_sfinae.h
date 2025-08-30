@@ -53,17 +53,69 @@ namespace otus
     //     static constexpr bool value = IsSame<T, U> && IsSame<T, Us...>::value;
     // };
 
-    template <typename X, typename Y>
-    struct Equal
+    namespace Number
     {
-        static constexpr bool value = false;
+        template <typename NoInteger>
+        inline constexpr bool IsInt = false;
+        // template <>
+        // inline constexpr bool IsInt<int> = true;
+        template <>
+        inline constexpr bool IsInt<int8_t> = true;
+        template <>
+        inline constexpr bool IsInt<int16_t> = true;
+        template <>
+        inline constexpr bool IsInt<int32_t> = true;
+        template <>
+        inline constexpr bool IsInt<int64_t> = true;
+    }
+
+    template <typename T>
+    struct HasToString
+    {
+    private:
+        static int convert(...);
+        template <typename U>
+        static decltype(std::to_string(std::declval<U>())) convert(const U &);
+
+    public:
+        static constexpr bool value =
+            !IsSame<int, decltype(convert(std::declval<T>()))>::value;
     };
 
-    template <typename X>
-    struct Equal<X, X>
+    template <typename T>
+    typename EnableIf<Number::IsInt<T> &&
+                          HasToString<T>::value,
+                      std::string>::type
+    print_ip(T val)
     {
-        static constexpr bool value = true;
-    };
+        // std::cout << "Int =" << val << "\n";
+        std::string result{};
+        auto size = sizeof(T);
+        result.reserve((size * 3) + (size - 1));
+
+        for (int i = size - 1; i >= 0; --i)
+        {
+            unsigned char byte = val >> 8 * i;
+            int number = static_cast<int>(byte);
+
+            result += std::to_string(number);
+            if (i != 0)
+            {
+                result += ".";
+            }
+        }
+
+        std::cout << result << "\n";
+        //  std::copy(&val,
+        //            &val + sizeof(T),
+        //            bytes);
+        //
+        //  for (int i = sizeof(T) - 1; i <= 0; --i)
+        //{
+        //     std::cout << static_cast<int>(bytes[i]) << " ";
+        // }
+        return result;
+    }
 
     template <typename T>
     struct HasFunction
@@ -89,58 +141,35 @@ namespace otus
     };
 
     template <typename T>
-    typename EnableIf<HasFunction<T>::value && !IsSame<T, std::string>::value, void>::type
-    print_ip(T val)
+    typename EnableIf<HasFunction<T>::value &&
+                          HasToString<decltype(*std::declval<T>().begin())>::value &&
+                          !IsSame<T, std::string>::value,
+                      std::string>::type
+    print_ip(const T &val)
     {
-        std::cout << "Vector/List size " << val.size() << "\n";
-    }
+        std::string result{};
+        result.reserve((val.size() * 3) + (val.size() - 1));
 
-    namespace Number
-    {
-        template <typename NoInteger>
-        inline constexpr bool IsInt = false;
-        // template <>
-        // inline constexpr bool IsInt<int> = true;
-        template <>
-        inline constexpr bool IsInt<int8_t> = true;
-        template <>
-        inline constexpr bool IsInt<int16_t> = true;
-        template <>
-        inline constexpr bool IsInt<int32_t> = true;
-        template <>
-        inline constexpr bool IsInt<int64_t> = true;
-    }
+        for (auto it = val.begin(); it != val.end(); ++it)
+        {
+            result += std::to_string(*it);
+            if (it != val.end() - 1)
+            {
+                result += ".";
+            }
+        }
 
-    template <typename T>
-    typename EnableIf<Number::IsInt<T>, void>::type
-    // typename EnableIf<std::is_integral<T>(), void>::type
-    print_ip(T val)
-    {
-        std::cout << "Int =" << val << "\n";
+        std::cout << result << "\n";
+        return result;
     }
 
     template <typename T>
-    typename EnableIf<IsSame<T, std::string>::value, void>::type
-    print_ip(T val)
+    typename EnableIf<IsSame<T, std::string>::value, std::string>::type
+    print_ip(const T &val)
     {
         std::cout << "std::string =" << val << "\n";
+        return val;
     }
-
-    // template <typename T>
-    // struct has_begin
-    //{
-    // private:
-    //     // Перегрузка с многоточием для случая, когда begin() не существует
-    //     static int check(...);
-    //
-    //    // Специализация для случая, когда begin() существует
-    //    template <typename U>
-    //    static decltype(std::declval<U>().begin()) check(const U &);
-    //
-    // public:
-    //    // Проверяем, что check() возвращает не int (это значит, что begin() существует)
-    //    static constexpr bool value = !std::is_same<int, decltype(check(std::declval<T>()))>::value;
-    //};
 
     namespace Tuple
     {
@@ -154,18 +183,39 @@ namespace otus
         inline constexpr bool IsTuple<std::tuple<U...>> = true;
     };
 
-    // template <typename T>
-    // typename EnableIf<Tuple::IsTuple<T>, void>::type
-    // print_ip(const T &val)
+    // std::string TupleToStringImpl(const std::tuple<> &)
     //{
-    //     std::cout << "tuple =" << std::get<0>(val) << " , " << std::get<1>(val) << "\n";
+    //     return {};
     // }
 
+    template <typename T, typename... Rest>
+    std::string TupleToStringImpl(const std::tuple<T, Rest...> &val)
+    {
+        std::string str = std::to_string(std::get<0>(val));
+        if constexpr (sizeof...(Rest) > 0)
+        {
+            str += "." + TupleToStringImpl(std::apply([](auto, auto... rest)
+                                                      { return std::make_tuple(rest...); }, val));
+        }
+        return str;
+    }
+
+    template <typename T, typename... Rest>
+    std::string TupleToString(const std::tuple<T, Rest...> &val)
+    {
+        std::string str = TupleToStringImpl(val);
+        return str;
+    }
+
     template <typename T, typename... U>
-    typename EnableIf<AllSame<T, U...>::value, void>::type
-    // void
+    typename EnableIf<AllSame<T, U...>::value &&
+                          HasToString<T>::value,
+                      std::string>::type
     print_ip(const std::tuple<T, U...> &val)
     {
         std::cout << "tuple =" << std::get<0>(val) << " , " << std::get<1>(val) << "\n";
+        std::string result = TupleToString(val);
+        std::cout << result << "\n";
+        return result;
     }
 }
