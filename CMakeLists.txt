@@ -9,10 +9,10 @@ option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
 configure_file(version.h.in version.h)
 
-add_executable(sfinae_cli sfinae.cpp lib_sfinae.h)
+add_executable(print_ip sfinae.cpp lib_sfinae.h)
 add_library(lib_version lib.cpp)
 
-set_target_properties(sfinae_cli lib_version PROPERTIES
+set_target_properties(print_ip lib_version PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
 )
@@ -21,7 +21,7 @@ target_include_directories(lib_version
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
  
-target_link_libraries(sfinae_cli PRIVATE
+target_link_libraries(print_ip PRIVATE
     lib_version
 ) 
 
@@ -46,7 +46,7 @@ if(WITH_BOOST_TEST)
 endif()
 
 if (MSVC)
-    target_compile_options(sfinae_cli PRIVATE
+    target_compile_options(print_ip PRIVATE
         /W4
     )
     target_compile_options(lib_version lib_sfinae PRIVATE
@@ -59,7 +59,7 @@ if (MSVC)
         )
     endif()
 else ()
-    target_compile_options(sfinae_cli PRIVATE
+    target_compile_options(print_ip PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(lib_version PRIVATE
@@ -73,7 +73,7 @@ else ()
     endif()
 endif()
 
-install(TARGETS sfinae_cli RUNTIME DESTINATION bin)
+install(TARGETS print_ip RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
