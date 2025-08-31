@@ -1,0 +1,55 @@
+\doxysection{otus Namespace Reference}
+\hypertarget{namespaceotus}{}\label{namespaceotus}\index{otus@{otus}}
+
+
+Sfinae function.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structotus_1_1AllSame}{All\+Same}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1AllSame_3_01T_01_4}{All\+Same$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1AllSame_3_01T_00_01U_00_01Us_8_8_8_01_4}{All\+Same$<$ T, U, Us... $>$}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1EnableIf}{Enable\+If}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1EnableIf_3_01true_00_01T_01_4}{Enable\+If$<$ true, T $>$}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1HasFunction}{Has\+Function}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1HasToString}{Has\+To\+String}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1IsSame}{Is\+Same}}
+\item 
+struct \mbox{\hyperlink{structotus_1_1IsSame_3_01T_00_01T_01_4}{Is\+Same$<$ T, T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceotus_a11c1afb61ebdee2af281f5dbd8474db3}\label{namespaceotus_a11c1afb61ebdee2af281f5dbd8474db3} 
+{\footnotesize template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$ }\\\mbox{\hyperlink{structotus_1_1EnableIf}{Enable\+If}}$<$ Number\+::\+Is\+Int$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$ \&\&\mbox{\hyperlink{structotus_1_1HasToString}{Has\+To\+String}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$\+::value, std\+::string $>$\+::type {\bfseries print\+\_\+ip} (\mbox{\hyperlink{structotus_1_1IsSame}{T}} \mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\item 
+\Hypertarget{namespaceotus_a85c790b9e4a7815262d5f7149044bd5b}\label{namespaceotus_a85c790b9e4a7815262d5f7149044bd5b} 
+\mbox{\hyperlink{structotus_1_1EnableIf}{Enable\+If}}$<$ \mbox{\hyperlink{structotus_1_1HasFunction}{Has\+Function}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$\+::value \&\&\mbox{\hyperlink{structotus_1_1HasToString}{Has\+To\+String}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{decltype}}(\texorpdfstring{$\ast$}{*}std\+::declval$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$().begin())$>$\+::value std\+::string \+::type {\bfseries print\+\_\+ip} (\mbox{\hyperlink{structotus_1_1IsSame}{const}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} \&\mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\item 
+\Hypertarget{namespaceotus_aa6877df899d3b0c9992f9e2b6bfa5bbe}\label{namespaceotus_aa6877df899d3b0c9992f9e2b6bfa5bbe} 
+{\footnotesize template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$ }\\\mbox{\hyperlink{structotus_1_1EnableIf}{Enable\+If}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{Is\+Same}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}}, std\+::string $>$\+::value, std\+::string $>$\+::type {\bfseries print\+\_\+ip} (\mbox{\hyperlink{structotus_1_1IsSame}{const}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} \&\mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\item 
+\Hypertarget{namespaceotus_a18f8814fd684e68233510025609846e5}\label{namespaceotus_a18f8814fd684e68233510025609846e5} 
+{\footnotesize template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} , typename... Rest$>$ }\\std\+::string {\bfseries Tuple\+To\+String\+Impl} (\mbox{\hyperlink{structotus_1_1IsSame}{const}} std\+::tuple$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}}, Rest... $>$ \&\mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\item 
+\Hypertarget{namespaceotus_a2643ba28bede92a147c5bdd4f840a9ad}\label{namespaceotus_a2643ba28bede92a147c5bdd4f840a9ad} 
+{\footnotesize template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} , typename... Rest$>$ }\\std\+::string {\bfseries Tuple\+To\+String} (\mbox{\hyperlink{structotus_1_1IsSame}{const}} std\+::tuple$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}}, Rest... $>$ \&\mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\item 
+\Hypertarget{namespaceotus_ac183d12df81af7ffc20c03be33ef36c7}\label{namespaceotus_ac183d12df81af7ffc20c03be33ef36c7} 
+{\footnotesize template$<$\mbox{\hyperlink{structotus_1_1IsSame}{typename}} \mbox{\hyperlink{structotus_1_1IsSame}{T}} , typename... U$>$ }\\\mbox{\hyperlink{structotus_1_1EnableIf}{Enable\+If}}$<$ \mbox{\hyperlink{structotus_1_1AllSame}{All\+Same}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}}, U... $>$\+::value \&\&\mbox{\hyperlink{structotus_1_1HasToString}{Has\+To\+String}}$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}} $>$\+::value, std\+::string $>$\+::type {\bfseries print\+\_\+ip} (\mbox{\hyperlink{structotus_1_1IsSame}{const}} std\+::tuple$<$ \mbox{\hyperlink{structotus_1_1IsSame}{T}}, U... $>$ \&\mbox{\hyperlink{structotus_1_1IsSame}{val}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sfinae function. 
+
+This .h file contains some functions, to create ip string by Int, std\+::vector, std\+::string, std\+::tuple, with some rules 

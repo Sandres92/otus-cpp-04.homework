@@ -11,11 +11,14 @@
 
 using namespace std;
 
-struct MyStruct
-{
-    /* data */
-};
-
+/**
+ * @brief Entry point
+ *
+ * Execution of the program
+ * starts here.
+ *
+ * @return Program exit status
+ */
 int main()
 {
     // int a = 1;
